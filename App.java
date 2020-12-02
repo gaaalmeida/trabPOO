@@ -40,6 +40,12 @@ public class App extends JFrame {
                     if (calc.lastInput().equals("") && !calc.isParsable(userInput.getText())) {
                         throw new EntradaException("Entre com um numero e depois o operando Ex: (1 + 2) e não (1 + +)");
                     }
+
+                    // Verifica se o operador que o usuario informou é valido
+                    if (!calc.opeValido(userInput.getText())) {
+                        userInput.setText("");
+                        throw new EntradaException("Os seguintes operadores são validos: /, +, -, *");
+                    }
                     resultArea.append(userInput.getText() + "\n");
                     calc.inserir(userInput.getText());
                     resultArea.setCaretPosition(resultArea.getText().length());
@@ -68,7 +74,7 @@ public class App extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 Set<String> recSet = calc.getRecuperarList();
                 if (recSet.size() == 0) {
-                    JOptionPane.showMessageDialog(null,"Não há nada para recuperar", "ERRO", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(null,"Não há nada para recuperar", "Recuperar", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
