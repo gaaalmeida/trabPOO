@@ -9,6 +9,7 @@ public class Calculadora {
     private List<Integer> auxInt;
     private List<Character> auxOpe;
     private int total;
+    private List<String> ope;
 
     public Calculadora() {
         this.userInput = new ArrayList<String>();
@@ -16,6 +17,15 @@ public class Calculadora {
         this.auxInt = new ArrayList<>();
         this.auxOpe = new ArrayList<>();
         this.total = 0;
+
+        this.ope = new ArrayList<>();
+
+        // Operadores validos
+        this.ope.add("/");
+        this.ope.add("*");
+        this.ope.add("+");
+        this.ope.add("-");
+        this.ope.add("=");
     }
 
     public boolean isParsable(String s) {
@@ -84,6 +94,19 @@ public class Calculadora {
             }
         }
         this.limpaArr();
+    }
+
+    public boolean opeValido(String s) {
+        if (!this.isParsable(s)) {
+            for(String o : ope) {
+                if (s.equals(o)) {
+                    return true;
+                }
+            }
+        } else {
+            return true;
+        }
+        return false;
     }
 
     public int ope(int x, int y, char op) throws ArithmeticException {
